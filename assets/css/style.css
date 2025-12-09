@@ -1,5 +1,21 @@
 /* assets/css/style.css */
 
+/* Reset ringan */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f8fafc;
+    /* abu terang */
+    color: #1f2937;
+    /* abu gelap */
+    line-height: 1.6;
+}
+
 /* Header & Footer */
 header,
 footer {
@@ -13,6 +29,7 @@ footer {
 /* Navigasi Top Bar */
 nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
     background: #1e3a8a;
@@ -25,12 +42,13 @@ nav a {
     text-decoration: none;
     font-weight: bold;
     padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
 }
 
 nav a:hover,
 nav a.active {
     background: #2563eb;
-    border-radius: 6px;
 }
 
 /* Konten */
@@ -40,4 +58,94 @@ main {
     padding: 20px;
     background: #fff;
     border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+h1,
+h2,
+h3 {
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+/* Paragraf & List */
+p {
+    margin-bottom: 12px;
+}
+
+ul {
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+/* Card */
+.card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    gap: 16px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+th,
+td {
+    border: 1px solid #e5e7eb;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #f1f5f9;
+}
+
+/* Callout */
+.callout {
+    border-left: 4px solid #3b82f6;
+    background: #eff6ff;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
 }
