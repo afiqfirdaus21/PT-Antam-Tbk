@@ -1,4 +1,4 @@
-/* assets/css/style.css */
+/* assets/css/style.css **/
 
 /* Reset ringan */
 * {
@@ -35,7 +35,7 @@ nav {
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
-    background: #1e3a8a;
+    background: #0f172a;
     padding: 10px;
 }
 
@@ -51,7 +51,7 @@ nav a {
 
 nav a:hover,
 nav a.active {
-    background: #2563eb;
+    background: #465a85;
 }
 
 /* Konten */
