@@ -16,11 +16,6 @@ body {
     line-height: 1.6;
 }
 
-body {
-    background: yellow !important;
-}
-
-
 /* Header & Footer */
 header,
 footer {
