@@ -49,18 +49,15 @@
                 agar tetap positif, tidak hanya berfokus pada keberhasilan finansial, tetapi juga bagaimana memberikan
                 manfaat luas dan menghadirkan nilai tambah bagi masyarakat.</p>
 
-            <p>ANTAM juga berkomitmen terhadap <strong>praktik pertambangan yang bertanggung jawab</strong>, dengan fokus
+            <p>ANTAM juga berkomitmen terhadap <strong>praktik pertambangan yang bertanggung jawab</strong>, dengan
+                fokus
                 pada keberlanjutan, keselamatan kerja, dan pelestarian lingkungan. Perusahaan ini juga aktif dalam
                 program <strong>Zero Fatalities</strong> dan pelaporan ESG (Environmental, Social, Governance).</p>
         </section>
 
         <section class="section">
-            <h2>Sejarah & Asal Usul</h2>
+            <h2>Ringkasan Perusahaan</h2>
             <div class="info-boxes">
-                <div class="info-box" onclick="openPopup('sejarah')">
-                    <h3> Sejarah ANTAM</h3>
-                    <p>Didirikan tahun 1968, kini bagian dari MIND ID.</p>
-                </div>
                 <div class="info-box" onclick="openPopup('visi')">
                     <h3> Visi & Misi</h3>
                     <p>Korporasi global berbasis sumber daya alam.</p>
@@ -75,29 +72,21 @@
         <!-- Popups -->
         <div class="overlay" id="overlay" onclick="closePopup()"></div>
 
-        <div class="popup" id="popup-sejarah">
-            <button class="close-btn" onclick="closePopup()">Tutup</button>
-            <h4>Sejarah ANTAM</h4>
-            <p>Didirikan tahun 1968 melalui penggabungan beberapa perusahaan tambang milik negara yang sebelumnya
-                berdiri secara terpisah.</p>
-            <p>Awalnya fokus pada eksploitasi dan pengolahan emas, nikel, bauksit, dan feronikel.</p>
-            <p>ANTAM kemudian berkembang menjadi perusahaan publik dengan saham tercatat di Bursa Efek Indonesia (IDX)
-                dengan kode ANTM.</p>
-            <p>Saat ini ANTAM menjadi bagian dari holding BUMN pertambangan MIND ID, bersama Freeport Indonesia, Bukit
-                Asam, Timah, dan Inalum.</p>
-        </div>
-
         <div class="popup" id="popup-visi">
             <button class="close-btn" onclick="closePopup()">Tutup</button>
-            <h4>Visi & Misi</h4>
-            <p><strong>Visi:</strong> Menjadi korporasi global terkemuka melalui diversifikasi berbasis sumber daya
+            <p><strong>
+                    <h4>Visi :</h4>
+                </strong>
+                Menjadi korporasi global terkemuka melalui diversifikasi berbasis sumber daya
                 alam.</p>
-            <p><strong>Misi:</strong></p>
+            <p><strong>
+                    <h4>Misi :</h4>
+                </strong></p>
             <ul>
-                <li>Menghasilkan produk berkualitas dengan nilai tambah tinggi.</li>
-                <li>Menerapkan praktik industri berkelanjutan yang ramah lingkungan.</li>
-                <li>Memberikan manfaat ekonomi dan sosial bagi masyarakat sekitar.</li>
-                <li>Menjaga keselamatan kerja dan kesehatan karyawan.</li>
+                Menghasilkan produk berkualitas dengan nilai tambah tinggi.
+                Menerapkan praktik industri berkelanjutan yang ramah lingkungan.
+                Memberikan manfaat ekonomi dan sosial bagi masyarakat sekitar.
+                Menjaga keselamatan kerja dan kesehatan karyawan.
             </ul>
         </div>
 
@@ -105,28 +94,33 @@
             <button class="close-btn" onclick="closePopup()">Tutup</button>
             <h4>Bidang Usaha Utama</h4>
             <ul>
-                <li><strong>Emas:</strong> Tambang Pongkor (Bogor) dan Cibaliung (Banten), serta produksi emas batangan.
-                </li>
-                <li><strong>Nikel:</strong> Tambang di Sulawesi Tenggara dan Maluku Utara, pengolahan feronikel.</li>
-                <li><strong>Bauksit:</strong> Tambang di Kalimantan Barat, rencana smelter alumina.</li>
-                <li><strong>Logam Mulia:</strong> Produksi dan pemurnian emas batangan.</li>
+                <strong>Emas:</strong> Tambang Pongkor (Bogor) dan Cibaliung (Banten), serta produksi emas batangan.
+                <strong>Nikel:</strong> Tambang di Sulawesi Tenggara dan Maluku Utara, pengolahan feronikel.
+                <strong>Bauksit:</strong> Tambang di Kalimantan Barat, rencana smelter alumina.
+                <strong>Logam Mulia:</strong> Produksi dan pemurnian emas batangan.
             </ul>
         </div>
 
         <script>
             function openPopup(id) {
+                // tampilkan overlay dan popup
                 document.getElementById('overlay').style.display = 'block';
                 document.getElementById('popup-' + id).style.display = 'block';
+
+                // kunci scroll halaman
+                document.body.style.overflow = 'hidden';
             }
 
             function closePopup() {
+                // sembunyikan overlay dan semua popup
                 document.getElementById('overlay').style.display = 'none';
-                var popups = document.getElementsByClassName('popup');
-                for (var i = 0; i < popups.length; i++) {
-                    popups[i].style.display = 'none';
-                }
+                document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+
+                // aktifkan kembali scroll halaman
+                document.body.style.overflow = 'auto';
             }
         </script>
+
 
         <section class="section">
             <h2>Berita Terbaru</h2>
@@ -220,5 +214,28 @@
     </footer>
 
 </body>
+
+<script>
+    function openPopup(id) {
+        // tampilkan overlay & popup dengan animasi
+        document.getElementById('overlay').classList.add('active');
+        document.getElementById('popup-' + id).classList.add('active');
+
+        // kunci scroll halaman
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePopup() {
+        // hilangkan class active → trigger fade-out
+        document.getElementById('overlay').classList.remove('active');
+        document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+
+        // tunggu transisi selesai sebelum sembunyikan scroll
+        setTimeout(() => {
+            document.body.style.overflow = 'auto';
+        }, 300); // sesuai durasi transition
+    }
+</script>
+
 
 </html>

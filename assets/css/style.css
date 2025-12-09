@@ -241,42 +241,7 @@ th {
     color: #0f172a;
 }
 
-/* Pop-up */
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 24px;
-    max-width: 600px;
-    z-index: 999;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.popup h4 {
-    margin-top: 0;
-    color: #1e3a8a;
-}
-
-.popup p {
-    margin-bottom: 12px;
-}
-
-.popup .close-btn {
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    float: right;
-}
-
-/* Overlay */
+/* Overlay dengan fade */
 .overlay {
     display: none;
     position: fixed;
@@ -286,4 +251,36 @@ th {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     z-index: 998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Pop-up dengan fade + transisi */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    max-width: 600px;
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Saat aktif */
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.popup.active {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
