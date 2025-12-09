@@ -46,44 +46,83 @@
 
         <section class="section">
             <h2>Sejarah & Asal Usul</h2>
-            <p>Halaman ini merangkum status K3: kebijakan, pelatihan, inspeksi, kejadian, dan perbaikan.</p>
-            <div class="grid grid-3">
-                <div class="card">
-                    <h3>Kebijakan</h3>
-                    <p>Komitmen manajemen, sasaran tahunan, standar (ISO 45001).</p>
-                    <span class="badge">Terakhir diperbarui: 2025</span>
+            <div class="info-boxes">
+                <div class="info-box" onclick="openPopup('sejarah')">
+                    <h3>📜 Sejarah ANTAM</h3>
+                    <p>Didirikan tahun 1968, kini bagian dari MIND ID.</p>
                 </div>
-                <div class="card">
-                    <h3>Keselamatan</h3>
-                    <p>Pelatihan, SOP kritikal, permit to work, LOTO.</p>
-                    <span class="badge">Status: Stabil</span>
+                <div class="info-box" onclick="openPopup('visi')">
+                    <h3>🌍 Visi & Misi</h3>
+                    <p>Korporasi global berbasis sumber daya alam.</p>
                 </div>
-                <div class="card">
-                    <h3>Audit</h3>
-                    <p>Internal/eksternal, temuan & tindakan korektif.</p>
-                    <span class="badge">Q4 berjalan</span>
+                <div class="info-box" onclick="openPopup('usaha')">
+                    <h3>⚒️ Bidang Usaha</h3>
+                    <p>Emas, nikel, bauksit, dan logam mulia.</p>
                 </div>
             </div>
         </section>
 
-        <section class="section">
-            <h2>Tujuan tahun ini</h2>
+        <!-- Popups -->
+        <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+        <div class="popup" id="popup-sejarah">
+            <button class="close-btn" onclick="closePopup()">Tutup</button>
+            <h4>Sejarah ANTAM</h4>
+            <p>Didirikan tahun 1968 melalui penggabungan beberapa perusahaan tambang milik negara yang sebelumnya
+                berdiri secara terpisah.</p>
+            <p>Awalnya fokus pada eksploitasi dan pengolahan emas, nikel, bauksit, dan feronikel.</p>
+            <p>ANTAM kemudian berkembang menjadi perusahaan publik dengan saham tercatat di Bursa Efek Indonesia (IDX)
+                dengan kode ANTM.</p>
+            <p>Saat ini ANTAM menjadi bagian dari holding BUMN pertambangan MIND ID, bersama Freeport Indonesia, Bukit
+                Asam, Timah, dan Inalum.</p>
+        </div>
+
+        <div class="popup" id="popup-visi">
+            <button class="close-btn" onclick="closePopup()">Tutup</button>
+            <h4>Visi & Misi</h4>
+            <p><strong>Visi:</strong> Menjadi korporasi global terkemuka melalui diversifikasi berbasis sumber daya
+                alam.</p>
+            <p><strong>Misi:</strong></p>
             <ul>
-                <li><strong>Zero harm:</strong> Tidak ada fatality dan menurunkan LTIFR.</li>
-                <li><strong>Budaya:</strong> Meningkatkan pelaporan near-miss dan observasi aman.</li>
-                <li><strong>Hilirisasi:</strong> Standarisasi SOP lintas site.</li>
+                <li>Menghasilkan produk berkualitas dengan nilai tambah tinggi.</li>
+                <li>Menerapkan praktik industri berkelanjutan yang ramah lingkungan.</li>
+                <li>Memberikan manfaat ekonomi dan sosial bagi masyarakat sekitar.</li>
+                <li>Menjaga keselamatan kerja dan kesehatan karyawan.</li>
             </ul>
-            <div class="callout">Tip: Simpan semua dokumen K3 dalam repositori terstruktur agar audit cepat dan akurat.
-            </div>
-        </section>
+        </div>
+
+        <div class="popup" id="popup-usaha">
+            <button class="close-btn" onclick="closePopup()">Tutup</button>
+            <h4>Bidang Usaha Utama</h4>
+            <ul>
+                <li><strong>Emas:</strong> Tambang Pongkor (Bogor) dan Cibaliung (Banten), serta produksi emas batangan.
+                </li>
+                <li><strong>Nikel:</strong> Tambang di Sulawesi Tenggara dan Maluku Utara, pengolahan feronikel.</li>
+                <li><strong>Bauksit:</strong> Tambang di Kalimantan Barat, rencana smelter alumina.</li>
+                <li><strong>Logam Mulia:</strong> Produksi dan pemurnian emas batangan.</li>
+            </ul>
+        </div>
+        <script>
+            function openPopup(id) {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('popup-' + id).style.display = 'block';
+            }
+
+            function closePopup() {
+                document.getElementById('overlay').style.display = 'none';
+                var popups = document.getElementsByClassName('popup');
+                for (var i = 0; i < popups.length; i++) {
+                    popups[i].style.display = 'none';
+                }
+            }
+        </script>
 
         <section class="section">
             <h2>Berita Terbaru</h2>
             <div class="news-grid">
 
                 <div class="news-card">
-                    <img src="assets/images/gambar6.jpg"
-                        alt="Gedung ANTAM">
+                    <img src="assets/images/gambar6.jpg" alt="Gedung ANTAM">
                     <div class="content">
                         <h3>27 Oktober 2025</h3>
                         <p><strong>Laba ANTAM Melonjak 197%</strong> berkat peningkatan penjualan nikel dan efisiensi
@@ -92,8 +131,7 @@
                 </div>
 
                 <div class="news-card">
-                    <img src="assets/images/gambar7.jpg"
-                        alt="Fasilitas daycare ANTAM">
+                    <img src="assets/images/gambar7.jpg" alt="Fasilitas daycare ANTAM">
                     <div class="content">
                         <h3>04 Desember 2025</h3>
                         <p><strong>ANTAM Resmikan Fasilitas Daycare</strong> untuk mendukung kesejahteraan karyawan dan
@@ -102,8 +140,7 @@
                 </div>
 
                 <div class="news-card">
-                    <img src="assets/images/gambar8.jpg"
-                        alt="Penghargaan ESG ANTAM">
+                    <img src="assets/images/gambar8.jpg" alt="Penghargaan ESG ANTAM">
                     <div class="content">
                         <h3>01 Desember 2025</h3>
                         <p><strong>ANTAM Raih Gold Rank ASRRAT</strong> atas komitmen terhadap praktik ESG dan
@@ -112,8 +149,7 @@
                 </div>
 
                 <div class="news-card">
-                    <img src="assets/images/gambar9.jpg"
-                        alt="Penghargaan Circular Economy">
+                    <img src="assets/images/gambar9.jpg" alt="Penghargaan Circular Economy">
                     <div class="content">
                         <h3>28 November 2025</h3>
                         <p><strong>ANTAM Menangkan Circular Economy Awards</strong> atas inovasi pengelolaan limbah dan
@@ -124,7 +160,8 @@
             </div>
 
             <div style="text-align:right; margin-top:12px;">
-                <a href="https://antam.co.id/berita" target="_blank" style="color:#2563eb; font-weight:bold;">Lihat
+                <a href="https://www.antam.com/id/news-and-events" target="_blank"
+                    style="color:#2563eb; font-weight:bold;">Lihat
                     Semua Berita →</a>
             </div>
         </section>
