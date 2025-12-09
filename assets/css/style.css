@@ -28,14 +28,17 @@ footer {
 
 /* Navigasi Top Bar */
 nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
     background: #1e3a8a;
-    /* biru */
     padding: 10px;
 }
+
 
 nav a {
     color: #fff;
