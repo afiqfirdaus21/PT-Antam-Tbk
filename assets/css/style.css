@@ -318,3 +318,40 @@ th {
 .btn-download:hover {
     background-color: #2563eb;
 }
+
+.k3-box {
+    margin-bottom: 48px;
+    padding: 24px;
+    background: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.k3-box h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.k3-box img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.k3-box ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+}
+
+.k3-box h4 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #0f172a;
+}
