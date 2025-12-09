@@ -149,3 +149,47 @@ th {
         grid-template-columns: 1fr;
     }
 }
+
+/* Berita card dengan gambar dan hover */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.news-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.news-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+.news-card .content {
+    padding: 14px;
+}
+
+.news-card h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: #0f172a;
+}
+
+.news-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #334155;
+}
