@@ -115,6 +115,394 @@
                     karena dampaknya fatal dan probabilitasnya sering terjadi pada musim hujan. Pengendalian dilakukan
                     dengan monitoring geoteknik, sistem drainase, dan evakuasi darurat.</p>
             </div>
+
+            <!doctype html>
+            <html lang="id">
+
+            <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <title>Matriks Penilaian Risiko 5x5</title>
+
+                <!-- Opsional: gunakan style.css kamu. Komponen ini juga menyertakan gaya mandiri. -->
+                <style>
+                    :root {
+                        --risk-low: #22c55e;
+                        /* hijau */
+                        --risk-med: #f59e0b;
+                        /* kuning */
+                        --risk-high: #f97316;
+                        /* oranye */
+                        --risk-extreme: #ef4444;
+                        /* merah */
+                        --bg: #0f172a;
+                        --surface: #fff;
+                        --muted: #64748b;
+                        --border: #e2e8f0;
+                    }
+
+                    body {
+                        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+                        background: #f8fafc;
+                        color: #0f172a;
+                        margin: 0;
+                        padding: 24px
+                    }
+
+                    .section {
+                        max-width: 1080px;
+                        margin: 0 auto
+                    }
+
+                    h2 {
+                        margin: 0 0 16px
+                    }
+
+                    .k3-box {
+                        background: #fff;
+                        border: 1px solid var(--border);
+                        border-radius: 12px;
+                        padding: 20px;
+                        margin-bottom: 20px;
+                        box-shadow: 0 2px 8px rgba(0, 0, 0, .04)
+                    }
+
+                    /* Matriks */
+                    .matrix-wrap {
+                        overflow: auto;
+                        border: 1px solid var(--border);
+                        border-radius: 12px
+                    }
+
+                    .risk-matrix {
+                        border-collapse: collapse;
+                        width: 100%;
+                        min-width: 720px;
+                        background: #fff
+                    }
+
+                    .risk-matrix th,
+                    .risk-matrix td {
+                        border: 1px solid var(--border);
+                        padding: 10px;
+                        text-align: center
+                    }
+
+                    .risk-matrix thead th {
+                        background: #f1f5f9;
+                        font-weight: 600
+                    }
+
+                    .risk-matrix .y-label {
+                        writing-mode: vertical-rl;
+                        transform: rotate(180deg);
+                        background: #f1f5f9;
+                        font-weight: 700;
+                        width: 48px
+                    }
+
+                    .risk-matrix .x-label {
+                        background: #f1f5f9;
+                        font-weight: 700
+                    }
+
+                    .risk-matrix .sev {
+                        background: #f8fafc;
+                        font-weight: 600;
+                        text-align: left
+                    }
+
+                    .cell {
+                        cursor: pointer;
+                        position: relative;
+                        color: #0f172a
+                    }
+
+                    .cell small {
+                        display: block;
+                        color: #0f172a;
+                        font-weight: 600
+                    }
+
+                    .cell .example {
+                        display: block;
+                        color: #111827;
+                        margin-top: 6px;
+                        font-size: .85rem
+                    }
+
+                    .legend {
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        margin-top: 10px
+                    }
+
+                    .legend .item {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                        color: #334155
+                    }
+
+                    .swatch {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 4px;
+                        border: 1px solid rgba(0, 0, 0, .1)
+                    }
+
+                    /* Warna sel (tingkat risiko) */
+                    .low {
+                        background: color-mix(in oklab, var(--risk-low) 25%, white 75%)
+                    }
+
+                    .med {
+                        background: color-mix(in oklab, var(--risk-med) 25%, white 75%)
+                    }
+
+                    .high {
+                        background: color-mix(in oklab, var(--risk-high) 25%, white 75%)
+                    }
+
+                    .extreme {
+                        background: color-mix(in oklab, var(--risk-extreme) 25%, white 75%)
+                    }
+
+                    /* Panel detail */
+                    .detail {
+                        margin-top: 14px;
+                        border: 1px dashed var(--border);
+                        border-radius: 10px;
+                        padding: 12px;
+                        background: #f8fafc
+                    }
+
+                    .detail h4 {
+                        margin: 0 0 8px
+                    }
+
+                    .detail p {
+                        margin: 0 0 6px
+                    }
+
+                    .detail .tags {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                        margin-top: 8px
+                    }
+
+                    .tag {
+                        background: #e2e8f0;
+                        color: #0f172a;
+                        padding: 4px 8px;
+                        border-radius: 6px;
+                        font-size: .8rem
+                    }
+
+                    /* Hint aksesibilitas */
+                    .cell:focus {
+                        outline: 2px solid #334155;
+                        outline-offset: -2px
+                    }
+                </style>
+            </head>
+
+            <body>
+                <main class="section">
+                    <h2>Matriks penilaian risiko 5x5</h2>
+
+                    <div class="k3-box">
+                        <p>Klik sel untuk melihat detail. Matriks menggabungkan tingkat dampak (vertikal) dan
+                            probabilitas (horizontal) untuk menentukan tingkat risiko.</p>
+
+                        <div class="matrix-wrap" role="table" aria-label="Matriks Penilaian Risiko 5x5">
+                            <table class="risk-matrix">
+                                <thead>
+                                    <tr>
+                                        <th class="y-label" rowspan="2" scope="colgroup" aria-label="Tingkat Dampak">
+                                            Tingkat Dampak</th>
+                                        <th class="x-label" colspan="6" scope="colgroup">Probabilitas</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Jarang</th>
+                                        <th scope="col">Kadang</th>
+                                        <th scope="col">Sering</th>
+                                        <th scope="col">Sangat sering</th>
+                                        <th scope="col">Hampir pasti</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Ringan -->
+                                    <tr>
+                                        <th scope="row" class="sev">Ringan</th>
+                                        <td class="cell low" tabindex="0" data-title="Ringan × Jarang"
+                                            data-level="Rendah" data-ex="Luka gores kecil di workshop"
+                                            data-controls="SOP standar, plester, antiseptik"></td>
+                                        <td class="cell low" tabindex="0" data-title="Ringan × Kadang"
+                                            data-level="Rendah" data-ex="" data-controls="SOP standar, pengawasan"></td>
+                                        <td class="cell med" tabindex="0" data-title="Ringan × Sering"
+                                            data-level="Sedang" data-ex=""
+                                            data-controls="Administratif, briefing, pengawasan ketat"></td>
+                                        <td class="cell med" tabindex="0" data-title="Ringan × Sangat sering"
+                                            data-level="Sedang" data-ex=""
+                                            data-controls="Pengendalian administratif + APD"></td>
+                                        <td class="cell high" tabindex="0" data-title="Ringan × Hampir pasti"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Engineering ringan + administrasi + APD"></td>
+                                    </tr>
+                                    <!-- Sedang -->
+                                    <tr>
+                                        <th scope="row" class="sev">Sedang</th>
+                                        <td class="cell low" tabindex="0" data-title="Sedang × Jarang"
+                                            data-level="Rendah" data-ex="" data-controls="SOP, monitoring periodik">
+                                        </td>
+                                        <td class="cell med" tabindex="0" data-title="Sedang × Kadang"
+                                            data-level="Sedang" data-ex=""
+                                            data-controls="Kontrol administratif, inspeksi"></td>
+                                        <td class="cell med" tabindex="0" data-title="Sedang × Sering"
+                                            data-level="Sedang" data-ex="Paparan debu tambang"
+                                            data-controls="Ventilasi, penyemprotan air, respirator, housekeeping"></td>
+                                        <td class="cell high" tabindex="0" data-title="Sedang × Sangat sering"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Engineering + administrasi + APD"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Sedang × Hampir pasti"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Hentikan pekerjaan, rekayasa, izin kerja khusus"></td>
+                                    </tr>
+                                    <!-- Berat -->
+                                    <tr>
+                                        <th scope="row" class="sev">Berat</th>
+                                        <td class="cell med" tabindex="0" data-title="Berat × Jarang"
+                                            data-level="Sedang" data-ex="Patah tulang akibat jatuh dari ketinggian"
+                                            data-controls="Proteksi jatuh, izin kerja ketinggian, pelatihan, rescue kit">
+                                        </td>
+                                        <td class="cell high" tabindex="0" data-title="Berat × Kadang"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Guarding, interlock, LOTO, supervisi"></td>
+                                        <td class="cell high" tabindex="0" data-title="Berat × Sering"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Engineering kuat + administrasi + APD khusus"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Berat × Sangat sering"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, redesign proses, barikade"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Berat × Hampir pasti"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, rekayasa mayor, audit risiko"></td>
+                                    </tr>
+                                    <!-- Fatal -->
+                                    <tr>
+                                        <th scope="row" class="sev">Fatal</th>
+                                        <td class="cell high" tabindex="0" data-title="Fatal × Jarang"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Rekayasa, prosedur kritis, izin kerja"></td>
+                                        <td class="cell high" tabindex="0" data-title="Fatal × Kadang"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Rekayasa mayor, barikade, simulasi darurat"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Fatal × Sering"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, redesign total, mitigasi permanen"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Fatal × Sangat sering"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, engineering dominan, kontrol akses"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Fatal × Hampir pasti"
+                                            data-level="Ekstrem" data-ex="Tanah longsor di tambang terbuka"
+                                            data-controls="Monitoring geoteknik, drainase, penataan lereng, rencana evakuasi & muster point">
+                                        </td>
+                                    </tr>
+                                    <!-- Katastropik -->
+                                    <tr>
+                                        <th scope="row" class="sev">Katastropik</th>
+                                        <td class="cell high" tabindex="0" data-title="Katastropik × Jarang"
+                                            data-level="Tinggi" data-ex=""
+                                            data-controls="Desain protektif, barrier, izin kerja ketat"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Katastropik × Kadang"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, studi HAZOP/LOPA, mitigasi besar"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Katastropik × Sering"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, perubahan proses, pengawasan tingkat manajemen">
+                                        </td>
+                                        <td class="cell extreme" tabindex="0" data-title="Katastropik × Sangat sering"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, redesign fasilitas, audit eksternal"></td>
+                                        <td class="cell extreme" tabindex="0" data-title="Katastropik × Hampir pasti"
+                                            data-level="Ekstrem" data-ex=""
+                                            data-controls="Stop work, rencana kontinjensi, koordinasi pihak berwenang">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="legend" aria-label="Legenda tingkat risiko">
+                            <div class="item"><span class="swatch" style="background:var(--risk-low)"></span> Rendah
+                            </div>
+                            <div class="item"><span class="swatch" style="background:var(--risk-med)"></span> Sedang
+                            </div>
+                            <div class="item"><span class="swatch" style="background:var(--risk-high)"></span> Tinggi
+                            </div>
+                            <div class="item"><span class="swatch" style="background:var(--risk-extreme)"></span>
+                                Ekstrem</div>
+                        </div>
+
+                        <div id="detail" class="detail" aria-live="polite">
+                            <h4>Detail risiko</h4>
+                            <p><strong>Kombinasi:</strong> —</p>
+                            <p><strong>Tingkat risiko:</strong> —</p>
+                            <p><strong>Contoh:</strong> —</p>
+                            <p><strong>Pengendalian (HIRARC):</strong> —</p>
+                            <div class="tags">
+                                <span class="tag">Engineering</span>
+                                <span class="tag">Administrasi</span>
+                                <span class="tag">APD</span>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <script>
+                    const detail = document.getElementById('detail');
+                    function updateDetail(target) {
+                        const title = target.dataset.title || '—';
+                        const level = target.dataset.level || '—';
+                        const ex = target.dataset.ex || '—';
+                        const controls = target.dataset.controls || '—';
+                        detail.innerHTML = `
+        <h4>Detail risiko</h4>
+        <p><strong>Kombinasi:</strong> ${title}</p>
+        <p><strong>Tingkat risiko:</strong> ${level}</p>
+        <p><strong>Contoh:</strong> ${ex}</p>
+        <p><strong>Pengendalian (HIRARC):</strong> ${controls}</p>
+        <div class="tags">
+          <span class="tag">Engineering</span>
+          <span class="tag">Administrasi</span>
+          <span class="tag">APD</span>
+        </div>
+      `;
+                    }
+                    document.querySelectorAll('.cell').forEach(cell => {
+                        cell.addEventListener('click', e => updateDetail(e.currentTarget));
+                        cell.addEventListener('keydown', e => {
+                            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); updateDetail(e.currentTarget); }
+                        });
+                        // Tampilkan label singkat dalam sel
+                        const level = cell.dataset.level || '';
+                        const ex = cell.dataset.ex || '';
+                        cell.innerHTML = `<small>${level}</small>${ex ? `<span class="example">${ex}</span>` : ''}`;
+                        // Tooltip title
+                        if (cell.dataset.title) cell.title = `${cell.dataset.title} • ${level}`;
+                    });
+                    // Set default tampilan: klik otomatis pada contoh "Paparan debu tambang"
+                    const defaultCell = Array.from(document.querySelectorAll('.cell'))
+                        .find(c => c.dataset.ex && c.dataset.ex.includes('Paparan debu'));
+                    if (defaultCell) updateDetail(defaultCell);
+                </script>
+            </body>
+
+            </html>
+
         </section>
     </main>
 
